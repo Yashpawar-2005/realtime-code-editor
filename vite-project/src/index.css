@@ -1,0 +1,38 @@
+@tailwind base;
+
+@tailwind components;
+@tailwind utilities;
+body {
+   
+    background-color: black;  
+    transition: background-color 0.3s ease-in-out; 
+  }
+  body::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+  }
+ 
+  .button-color {
+    @apply bg-purple-700 text-white p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 hover:bg-purple-950 transition-colors;
+  }
+  .button-colors {
+    @apply bg-purple-900 text-white  rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 hover:bg-purple-950 transition-colors;
+  }
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #2a2a2a; /* Darker background for the track */
+    border-radius: 10px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #6a4c9c; /* Thumb color */
+    border-radius: 10px;
+    border: 3px solid #2a2a2a; /* Optional: adds border between thumb and track */
+  }
+  
+  .custom-scrollbar {
+    scrollbar-width: thin; /* Thin scrollbar for Firefox */
+    scrollbar-color: #6a4c9c #2a2a2a; /* Thumb color and track color */
+  }

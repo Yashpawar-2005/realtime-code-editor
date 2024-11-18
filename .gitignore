@@ -1,0 +1,279 @@
+# Node.js dependencies
+node_modules/
+
+# Vite specific build folder
+/dist/
+
+# Vite cache
+.vite/
+
+# Environment configuration files
+.env
+.env.local
+.env.*.local
+
+# Debug log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Logs
+*.log
+
+# IDE and editor directories
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS specific files (macOS, Windows, Linux)
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vs/
+
+# Operating system files (Linux)
+*~
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Temporary files
+*.swp
+*.swo
+*.bak
+*.tmp
+*.temp
+*.orig
+
+# VSCode-specific files
+.vscode/settings.json
+.vscode/tasks.json
+.vscode/launch.json
+
+# JetBrains specific files (IntelliJ/WebStorm/PyCharm/etc.)
+.idea/
+*.iml
+
+# Eclipse project files
+.project
+.classpath
+.cproject
+
+# MacOS Finder folder attributes
+*.DS_Store
+
+# Thumbs.db (Windows)
+Thumbs.db
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Sublime Text project files
+*.sublime-project
+*.sublime-workspace
+
+# JetBrains project files
+.idea/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# VS Code specific files
+.vscode/
+
+# Webpack
+webpack.config.js
+webpack.config.*.js
+
+# Build output
+/dist
+/build
+/coverage
+/.next
+
+# Ignore .yarn directory (for Yarn users)
+.yarn/
+
+# npm package lock file (optional, only if you want to avoid committing it)
+# package-lock.json
+
+# yarn.lock (optional, for Yarn users)
+# yarn.lock
+
+# TypeScript build directory
+/lib/
+/out/
+*.tsbuildinfo
+
+# TypeScript source maps
+*.js.map
+*.ts.map
+
+# Tye
+.tye/
+
+# JetBrains IDE files
+.idea/
+
+# Android Studio/IntelliJ IDEA project files
+*.iml
+.idea/
+
+# Xcode files
+*.xcodeproj/
+*.xcworkspace/
+
+# Flutter
+.flutter-plugins
+.flutter-plugins-dependencies
+.flutter-app-
+.build/
+
+# Ember.js
+/dist/
+
+# MacOS specific files
+.DS_Store
+
+# Linux specific files
+*~
+
+# Windows specific files
+Thumbs.db
+ehthumbs.db
+
+# Android
+*.apk
+*.ap_
+*.aab
+*.dex
+*.class
+
+# Dependency directories (Composer, npm, yarn, etc.)
+node_modules/
+bower_components/
+jspm_packages/
+
+# OS generated files
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Logs
+*.log
+
+# JetBrains IDEs
+.idea/
+
+# Gradle
+.gradle/
+build/
+
+# Next.js cache
+.next/
+
+# Nuxt.js build
+.nuxt/
+
+# React Native
+ios/build/
+android/build/
+
+# Flutter
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# Coveralls
+.coveralls.yml
+
+# Rust's Cargo
+**/target/
+
+# Go binaries
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Python cache
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Ruby
+*.gem
+*.rbc
+.bundle/
+config.cache
+.yardoc
+_project/
+.ruby-version
+.ruby-gemset
+Gemfile.lock
+log/
+tmp/
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.class
+*.log
+*.hprof
+
+# PHP
+composer.lock
+vendor/
+
+# Django
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.db
+*.sqlite3
+
+# Laravel
+/vendor
+/.vscode/
+.env
+.env.local
+.env.*.local
+
+# Jekyll
+_site/
+
+# Hugo
+/public/
+
+# Hugo static site generator
+/public/
+
+# Django project settings files
+*.pyc
+
+# Vue.js build output
+/dist
+
+# Next.js cache
+.next/
+
+# React Native build output
+ios/build/
+android/build/
