@@ -1,8 +1,8 @@
 import React,{useEffect} from 'react'
 import { alllang } from "./constants.js";
-    import { useRecoilState, useRecoilValue,useSetRecoilState } from 'recoil';
-import { toggl,editortheme,languagee } from './atoms.js';
-
+import { useRecoilState, useRecoilValue,useSetRecoilState } from 'recoil';
+import { toggl,editortheme,languagee, livetoggle } from './atoms.js';
+import {useNavigate} from 'react-router-dom'
 import axios from 'axios';
 import { userdata } from './atoms.js';
 
@@ -13,11 +13,17 @@ const Topbar = () => {
     const setEditorTheme=useSetRecoilState(editortheme)
     const language=useRecoilValue(languagee)
     const setlanguage=useSetRecoilState(languagee)
+    const settogglelive=useSetRecoilState(livetoggle)
+    const togglelive=useRecoilValue(livetoggle)
 const {setUser}=userdata()
+const navaigate=useNavigate()
 
-
-
-        
+const handleleaveroom=async()=>{
+  navaigate("/")
+}
+const handleToggleState=()=>{
+        settogglelive((prev)=>{return !prev})
+      }
 const handlelogout=async()=>{
   try {
     const res= await axios.post("http://localhost:4000/api/auth/logout",{ withCredentials: true,  })
@@ -94,8 +100,7 @@ toggle switch
                    key={element.language}
                     value={element.language}>{element.title}
                   
-                  </option>
-               
+                  </option>     
 
 )
 })}
@@ -104,8 +109,8 @@ toggle switch
         </div>
 
         <div className=" text-white items-center flex flex-col gap-4">
-          <button >leave room</button>
-          <button>logout</button>
+          <button onClick={handleleaveroom}>leave room</button>
+          <button onClick={handlelogout}>logout</button>
         </div>
       </div>
 }
@@ -154,9 +159,27 @@ toggle switch
             </select>
           </div>
         </div>
+        <div>
+  <button
+    onClick={handleToggleState}
+    className={`${
+      togglelive
+        ? 'bg-[#5a2a8c] hover:bg-[#4c1f73] border-2 border-[#4c1f73]' 
+        : 'bg-[#1d3c6e] hover:bg-[#153e5e] border-2 border-[#153e5e]' 
+    } rounded-xl pl-4 pt-2 pb-2 pr-4 text-white transition-all duration-500 ease-in-out`}
+  >
+    {togglelive ? (
+      <div>Switch to Live Mode</div> 
+    ) : (
+      <div>Switch to Work Mode</div> 
+    )}
+  </button>
+</div>
+
+
 
         <div className=" text-white items-center flex flex-row gap-3">
-          <button className='bg-[#6261cc] rounded-xl pl-4 pt-2 pb-2 pr-4 hover:bg-[#5352ad]'>leave room</button>
+          <button className='bg-[#6261cc] rounded-xl pl-4 pt-2 pb-2 pr-4 hover:bg-[#5352ad]' onClick={handleleaveroom}>leave room</button>
           <button className='bg-[#6261cc] rounded-xl pl-4 pt-2 pb-2 pr-4 hover:bg-[#5352ad]' onClick={handlelogout}>logout</button>
         </div>
       </div>

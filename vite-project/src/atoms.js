@@ -44,3 +44,7 @@ export const userpresent=atom({
     default:false,
     key:"userpresent"
 })
+export const livetoggle=atom({
+  default:false,
+  key:"livetoggle"
+})
