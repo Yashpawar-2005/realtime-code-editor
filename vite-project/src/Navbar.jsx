@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { userdata } from './atoms';
-
+import axios from 'axios';
 const Navbar = () => {
   const [noroom, setnoroom] = useState(0);
   const { user } = userdata();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const logout = () => {
-    console.log("Logged out");
+  const logout =async () => {
+    try {
+      const res= await axios.post("http://localhost:4000/api/auth/logout",{ withCredentials: true,  })
+      console.log(res)
+      setUser(null)
+      console.log(res)
+    } catch (error) {
+      console.log("error in loggin out  "+error)
+    }
+   
   };
 
   useEffect(() => {
