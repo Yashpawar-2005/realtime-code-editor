@@ -24,8 +24,12 @@ export const joinroomrole=atom({
   key:"joinroomvalue"
 })
 export const createroomrole=atom({
-  default:"collaborator",
+  default:"viewer",
   key:"createroomrole"
+})
+export const role=atom({
+  default:"viewer",
+  key:"role"
 })
 export const userdata = create(
     persist(

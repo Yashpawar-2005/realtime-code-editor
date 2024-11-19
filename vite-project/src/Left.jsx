@@ -1,15 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Editor } from '@monaco-editor/react';
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { languagee, editorValu, editortheme } from "./atoms.js";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { languagee, editorValu, editortheme,  userdata, role, livetoggle } from "./atoms.js";
 import { motion } from 'framer-motion';  
+import { io } from 'socket.io-client';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import axios from 'axios';
 
+import axios from 'axios';
+import { useRef } from 'react';
 const Left = () => {
   const language = useRecoilValue(languagee);
-  const setlanguage = useSetRecoilState(languagee);
+  const rolee=useRecoilValue(role)
+  const typee=rolee
+  const {user}=userdata()
+  const userr=user.username;
+  const[togglestate,settogglestate]=useRecoilState(livetoggle)
   const editorTheme = useRecoilValue(editortheme);
   const setEditorValue = useSetRecoilState(editorValu);
   const editorValue = useRecoilValue(editorValu);
@@ -19,19 +25,63 @@ const Left = () => {
   const [responseText, setResponseText] = useState("");
   const [showPreview, setShowPreview] = useState(false); 
   const [showEmbedOption, setShowEmbedOption] = useState(false); 
+  const socket = useRef(null);
   
   const toastOptions = {
     position: "top-right", 
     autoClose: 3000, 
     className: 'toast-purple', 
     style: {
-      backgroundColor: '#8406d0', 
+      backgroundColor: '#6700a6', 
       color: 'white', 
       fontWeight: 'bold',
       borderRadius: '8px', 
     },
   };
 
+
+  
+  useEffect(() => {
+    socket.current = io('http://localhost:4000', {
+      withCredentials: true,  
+    });
+socket.current.emit('comm', {usernamee:userr, typee });
+socket.current.on('comm',({usernamee,typee})=>{
+  toast.success(`${usernamee} joined as ${typee}`,toastOptions)
+})
+    
+
+    socket.current.on('message', (data) => {
+      setMessage(data);
+    });
+    
+
+    return () => {
+        socket.current.on('user disconnected',({username,type})=>{
+                console.log("disconnecte")
+                console.log(username,type)
+        })
+      socket.current.disconnect();
+
+    };
+  }, []);
+  useEffect(() => {
+    console.log(togglestate)
+    if (togglestate) {
+      socket.current.emit("broadcast", editorValue);
+ 
+      socket.current.on("getvalue", (updatedEditor) => {
+        setEditorValue(updatedEditor); 
+      });
+    }
+
+    return () => {
+      socket.current.off("getvalue");
+    };
+  }, [togglestate]); 
+
+
+  
   useEffect(() => {
     console.log("Selected language:", language);
     setEditorValue(`// Write your ${language} code here`);

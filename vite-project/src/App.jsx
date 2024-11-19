@@ -45,12 +45,12 @@ function App() {
 const Animation = ({ children }) => {
   return (
     <motion.div
-    initial={{ opacity: 0, x: -100 }}  // Start from the left with 0 opacity
-    animate={{ opacity: 1, x: 0 }}     // Move to original position and fade in
-    exit={{ opacity: 0, x: 50 }}      // Slide out to the right and fade out
+    initial={{ opacity: 0, x: -100 }} 
+    animate={{ opacity: 1, x: 0 }}   
+    exit={{ opacity: 0, x: 50 }}     
     transition={{
       duration: 0.6,
-      ease: 'easeInOut',  // Smoother easing on both ends
+      ease: 'easeInOut', 
     }}
   >
     {children}

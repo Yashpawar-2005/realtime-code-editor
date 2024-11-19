@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion'
 import { useRecoilState } from 'recoil';
-import { createroomrole, joinroomrole } from './atoms';
+import { createroomrole, joinroomrole,role} from './atoms';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
@@ -13,6 +13,7 @@ const JoinOrCreateRoom = () => {
   const [createRoomName, setCreateRoomName] = useState('');
   const [createRole, setCreateRole] = useRecoilState(createroomrole);
   const [isJoinRoomOpen, setIsJoinRoomOpen] = useState(true);
+  const [rolee,setrolee]=useRecoilState(role)
   const navigate = useNavigate();
 
 
@@ -55,8 +56,10 @@ const JoinOrCreateRoom = () => {
     try {
       const res=axios.post("http://localhost:4000/api/room/createroom",{joinRoomName,joinRole},{ withCredentials: true, })
       toast.success(`Joining room ${joinRoomName} as ${joinRole}`, toastOptions);
+      setrolee(joinRoomName)
     setTimeout(() => {
       navigate(`/${joinRoomName}`);
+      // navigate(`/${joinRoomName}`);
     }, 3000);
     } catch (error) {
       console.log(error)
@@ -71,8 +74,10 @@ const JoinOrCreateRoom = () => {
     }
 
     toast.success(`Creating room ${createRoomName} as ${createRole}`, toastOptions);
+    setrolee(createRoomName)
     setTimeout(() => {
       navigate(`/${createRoomName}`);
+      // navigate(`/${createRoomName}`);
     }, 3000);
   };
 
