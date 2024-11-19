@@ -9,10 +9,12 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import axios from 'axios';
 import { useRef } from 'react';
+import { useParams } from 'react-router-dom';
 const Left = () => {
+  const {roomname:roomName}=useParams()
   const language = useRecoilValue(languagee);
   const rolee=useRecoilValue(role)
-  const typee=rolee
+  const type=rolee
   const {user}=userdata()
   const userr=user.username;
   const[togglestate,settogglestate]=useRecoilState(livetoggle)
@@ -43,43 +45,34 @@ const Left = () => {
   
   useEffect(() => {
     socket.current = io('http://localhost:4000', {
-      withCredentials: true,  
-    });
-socket.current.emit('comm', {usernamee:userr, typee });
-socket.current.on('comm',({usernamee,typee})=>{
-  toast.success(`${usernamee} joined as ${typee}`,toastOptions)
-})
-    
+   withCredentials: true,
+     });
+    socket.current.emit("join-room", roomName);
+    socket.current.emit("messageToRoom", { roomName, username:userr, type });
 
-    socket.current.on('message', (data) => {
-      setMessage(data);
+    socket.current.on("joinnednow", (data) => {
+      console.log(data);
+      toast.success(`${data.username} joined as ${data.type}`)
     });
     
-
     return () => {
-        socket.current.on('user disconnected',({username,type})=>{
-                console.log("disconnecte")
-                console.log(username,type)
-        })
       socket.current.disconnect();
-
     };
   }, []);
+
   useEffect(() => {
-    console.log(togglestate)
     if (togglestate) {
-      socket.current.emit("broadcast", editorValue);
- 
-      socket.current.on("getvalue", (updatedEditor) => {
-        setEditorValue(updatedEditor); 
+      socket.current.emit("join_sync_room", roomName);
+      socket.current.on("sync_editor_value", (updatedEditorValue) => {
+        setEditorValue(updatedEditorValue);
       });
+    } else {
+      socket.current.emit("leave_sync_room", roomName);
     }
-
     return () => {
-      socket.current.off("getvalue");
+      socket.current.off("sync_editor_value");
     };
-  }, [togglestate]); 
-
+  }, [togglestate, editorValue,setEditorValue,settogglestate]);
 
   
   useEffect(() => {
@@ -87,8 +80,14 @@ socket.current.on('comm',({usernamee,typee})=>{
     setEditorValue(`// Write your ${language} code here`);
   }, [language]);
 
-  const handleEditorChange = (newValue) => {
-    setEditorValue(newValue);
+  const handleEditorChange = (e,event) => {
+    if (togglestate) {
+      socket.current.emit("sendingcode", roomName, e); 
+    }
+    
+  
+
+
   };
 
   const togglePromptVisibility = () => {

@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 
 import Topbar from "./Topbar.jsx";
 import Omg from "./Omg.jsx";
-import SocketIOComponent from "./Control.jsx";
+// import js from './constants.js';
 
 const MonacoEditorComponent = () => {
- 
 
-  
 
   return (
     <div
@@ -15,8 +13,7 @@ const MonacoEditorComponent = () => {
       overflow-x-hidden"
     >
       <Topbar/>
-      <Omg />
-      
+      <Omg/>
     </div>
   );
 };

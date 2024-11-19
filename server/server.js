@@ -37,32 +37,39 @@ const io = new Server(server, {
     credentials: true,  
   }
 });
-io.on('connection', (socket) => {
-  let editorValue=""
-  
-  
-  socket.on('comm',({usernamee,typee})=>{
+io.on("connection", (socket) => {
+  socket.on("join-room", (roomName) => {
+    socket.join(roomName);
+  });
+  socket.on("messageToRoom", ({ roomName, username, type }) => {
+    socket.broadcast.to(roomName).emit("joinnednow", { username, type });
+    console.log(`Message sent to room ${roomName}:`);
+  });
+
+  socket.on("leave-sync-room", (roomName) => {
+    socket.leave(roomName);
+    console.log(`User left sync room: ${roomName}`);
+  });
+
+  socket.on("sendingcode", (roomName, updatedEditorValue) => {
+    io.to(roomName).emit("sync_editor_value", updatedEditorValue);
    
-    socket.broadcast.emit('comm',({usernamee,typee}))
-})
-  
-socket.on('broadcast', (updatedEditor) => {
-  editorValue += updatedEditor;
-  socket.emit('getvalue', editorValue);
-});
-
-  socket.on('message', (data) => {
-    console.log('Received message:', data);
-    socket.broadcast.emit('message', `You said: ${data}`);
   });
 
-
-  socket.on('disconnect', () => {
-    console.log('A user disconnected');
-    socket.broadcast.emit('user disconnected')
+  socket.on("chat-sent",({roomName,currenttext,username,type})=>{
+    console.log(currenttext)
+    const obj={
+      "text":currenttext,
+      "name":username,
+      "type":type
+    }
+    socket.broadcast.to(roomName).emit("chat-update",obj);
+  })
+  socket.on("disconnect", () => {
+    console.log("A user disconnected");
+    socket.broadcast.emit("user disconnected");
   });
 });
-
 
 app.get('/', (req, res) => {
   res.send("Server is ready");
