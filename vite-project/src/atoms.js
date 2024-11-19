@@ -30,13 +30,13 @@ export const createroomrole=atom({
 export const userdata = create(
     persist(
       (set) => ({
-        user: null, // Default value is null
-        setUser: (userData) => set({ user: userData }), // Method to set user data
-        clearUser: () => set({ user: null }), // Method to clear user data
+        user: null,
+        setUser: (userData) => set({ user: userData }),
+        clearUser: () => set({ user: null }),
       }),
       {
-        name: 'userdata', // Unique name for the localStorage key
-        getStorage: () => localStorage, // Default is localStorage
+        name: 'userdata',
+        getStorage: () => localStorage, 
       }
     )
   );

@@ -5,7 +5,7 @@ const Navbar = () => {
   const [noroom, setnoroom] = useState(0);
   const { user } = userdata();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
+const {setUser}=userdata()
   const logout =async () => {
     try {
       const res= await axios.post("http://localhost:4000/api/auth/logout",{ withCredentials: true,  })
