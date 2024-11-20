@@ -8,7 +8,7 @@ const Navbar = () => {
 const {setUser}=userdata()
   const logout =async () => {
     try {
-      const res= await axios.post("http://localhost:4000/api/auth/logout",{ withCredentials: true,  })
+      const res= await axios.post("/api/auth/logout",{ withCredentials: true,  })
       console.log(res)
       setUser(null)
       console.log(res)

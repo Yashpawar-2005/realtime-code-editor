@@ -13,13 +13,14 @@ dotenv.config();
 const app = express();
 
 
-const port = process.env.VITE_PORT || 4000;
+const port = process.env.PORT ||4000;
 
 
 app.use(express.json());
 app.use(cookieParser());
+
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: process.env.ORIGIN,
   credentials: true,
 }));
 
@@ -32,7 +33,7 @@ const server = createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:5173', 
+    origin: process.env.ORIGIN, 
     methods: ['GET', 'POST'],
     credentials: true,  
   }
@@ -63,7 +64,7 @@ io.on("connection", (socket) => {
       "name":username,
       "type":type
     }
-    socket.broadcast.to(roomName).emit("chat-update",obj);
+    io.to(roomName).emit("chat-update",obj);
   })
   socket.on("disconnect", () => {
     console.log("A user disconnected");

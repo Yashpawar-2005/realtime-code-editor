@@ -53,12 +53,14 @@ const Chat = () => {
                 Send
             </button>
         </div>
-        <div className="w-full flex flex-col space-y-4 p-4 h-screen overflow-scroll custom-scrollbar bg-purple-900">
+        <div className="w-full flex flex-col space-y-4 p-4 h-screen overflow-scroll custom-scrollbar bg-purple-950">
   {chat.length > 1 ? (
     chat.slice(1,chat.length).reverse().map((message, index) => (
       <div
         key={index}
-        className="flex flex-col p-3 rounded-lg shadow-md w-full text-white transition-all duration-300 ease-in-out bg-slate-800"
+        className={`flex flex-col p-3 rounded-lg shadow-md w-full text-[#D1D1D6] transition-all duration-300 ease-in-out 
+          ${message.name != username ? 'bg-slate-800/75 hover:bg-slate-800' : 'bg-slate-900/75 hover:bg-slate-900'} 
+          text-[#D1D1D6]`}
       >
         <div className="flex justify-between text-xs mb-2">
           <span className="font-semibold pr-4">{message.name}</span>

@@ -47,7 +47,7 @@ function Sign() {
     e.preventDefault();
     if (validateForm()) {
       try {
-        const user=await axios.post('http://localhost:4000/api/auth/signup',formData,{withCredentials:true})
+        const user=await axios.post('/api/auth/signup',formData,{withCredentials:true})
         toast("SignupSuccesfull")
         setUser(user.data)
         Navigate({to:"/room"})

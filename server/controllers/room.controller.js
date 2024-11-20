@@ -39,7 +39,7 @@ export const getrooms=async(req,res)=>{
 export const aihelp=async(req,res)=>{
     try {
         const{editorValue,prompt:promp}=req.body
-        const genAI = new GoogleGenerativeAI("AIzaSyA-LLP_-mo6HjA126qNK7E5jSkB1zcAFto");
+        const genAI = new GoogleGenerativeAI(process.env.GEMINI_KEY);
         
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
         const prompt = `${editorValue}  ${promp}`;

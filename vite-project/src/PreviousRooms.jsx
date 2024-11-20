@@ -12,7 +12,7 @@ const PreviousRooms = () => {
   useEffect(() => {
     const fun=async()=>{
         try {
-        const data= await axios.get("http://localhost:4000/api/room/getrooms",{
+        const data= await axios.get("/api/room/getrooms",{
           withCredentials: true, 
         })
         setRooms(data.data.rooms);

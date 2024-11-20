@@ -54,7 +54,7 @@ const JoinOrCreateRoom = () => {
       return;  
     }
     try {
-      const res=axios.post("http://localhost:4000/api/room/createroom",{joinRoomName,joinRole},{ withCredentials: true, })
+      const res=axios.post("/api/room/createroom",{joinRoomName,joinRole},{ withCredentials: true, })
       toast.success(`Joining room ${joinRoomName} as ${joinRole}`, toastOptions);
       setrolee(joinRoomName)
     setTimeout(() => {

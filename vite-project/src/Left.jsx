@@ -71,10 +71,9 @@ const Left = () => {
     }
     return () => {
       socket.current.off("sync_editor_value");
+      socket.current.off("leave_sync_room")
     };
   }, [togglestate, editorValue,setEditorValue,settogglestate]);
-
-  
   useEffect(() => {
     console.log("Selected language:", language);
     setEditorValue(`// Write your ${language} code here`);
@@ -84,10 +83,6 @@ const Left = () => {
     if (togglestate) {
       socket.current.emit("sendingcode", roomName, e); 
     }
-    
-  
-
-
   };
 
   const togglePromptVisibility = () => {

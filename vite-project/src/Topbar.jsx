@@ -26,7 +26,13 @@ const handleToggleState=()=>{
       }
 const handlelogout=async()=>{
   try {
-    const res= await axios.post("http://localhost:4000/api/auth/logout",{ withCredentials: true,  })
+    console.log("started")
+    
+
+    const res = await axios.post("/api/auth/logout", {}, {
+      withCredentials: true,
+    });
+    console.log("ended")
     console.log(res)
     setUser(null)
     console.log(res)

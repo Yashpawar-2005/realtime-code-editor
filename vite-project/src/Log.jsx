@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { userdata } from './atoms';
-
+import axios from 'axios';
+import { toast } from 'react-toastify';
 function Sign() {
     const { user, setUser } = userdata();
 const navigate=useNavigate()
@@ -41,9 +42,9 @@ const navigate=useNavigate()
 
   const handleSubmit =async(e) => {
     e.preventDefault();
-    if (validateForm()) {
+    if (true) {
         try {
-            const user=await axios.post('http://localhost:4000/api/auth/login',formData)
+            const user=await axios.post('/api/auth/login',formData)
             toast("LogIn Succesfull")
             setUser(user.data)
             navigate("/room")
