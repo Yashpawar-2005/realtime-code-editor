@@ -24,17 +24,19 @@ const Chat = () => {
           socket.current.disconnect();
         };
       }, []);
-    useEffect(() => {
-    socket.current.on("chat-update",(currentchat)=>{
-        console.log(currentchat)
-        setchat(prevChat => [...prevChat,currentchat]);
+      useEffect(() => {
+      
+        socket.current.on("chat-update", (currentchat) => {
+          console.log(currentchat);
+        
+          setchat((prevchat) => [...prevchat, currentchat]);
+        });
+     
+        return () => {
+          socket.current.off("chat-update");
+        };
+      }, []);
 
-    })
-    console.log(chat)
-      return () => {
-       
-      }
-    }, [chat,setchat])
     
     const [currenttext, setcurrenttext] = useState("")
     const handleclick=()=>{
@@ -43,34 +45,36 @@ const Chat = () => {
     }
 
   return (
-    <div className='  bg-purple-950  w-screen h-full xl:w-full max-h-[50vh] overflow-y-scroll custom-scrollbar '>
+    <div className='  bg-black  w-screen h-full xl:w-full max-h-[50vh] overflow-y-hidden '>
         <div className=' flex flex-row sticky top-0'>
-            <input type="text" onChange={(e)=>{setcurrenttext(e.target.value)}} placeholder='Chat now' value={currenttext} className='bg-gradient-to-r from-gray-800  to-gray-900 text-white outline-none rounded-lg h-full w-full p-3 ' />
-            <button onClick={handleclick} className='bg-[#726fff] rounded-2xl pl-4 pr-4 hover:bg-[#5c5ac2] text-white '>
+            <input type="text" onChange={(e)=>{setcurrenttext(e.target.value)}} placeholder='Chat now' value={currenttext} className='bg-gradient-to-r from-gray-800  to-gray-900 text-white outline-none  h-full w-full p-3 ' />
+            <button onClick={handleclick} className='bg-[#726fff] rounded-md pl-4 pr-4 hover:bg-[#5c5ac2] text-white '>
               
                 Send
             </button>
         </div>
-        <div className="w-full flex flex-col space-y-4 p-4 max-h-screen overflow-auto">
-  {chat.slice().reverse().map((message, index) => (
-    <div key={index} className="flex justify-between items-start space-x-4">
-   
+        <div className="w-full flex flex-col space-y-4 p-4 h-screen overflow-scroll custom-scrollbar bg-purple-900">
+  {chat.length > 1 ? (
+    chat.slice(1,chat.length).reverse().map((message, index) => (
       <div
-        className={`flex flex-col p-4 rounded-lg max-w-[80%] text-white ${
-          message.type === 'user' ? 'bg-blue-500' : 'bg-gray-800'
-        }`}
+        key={index}
+        className="flex flex-col p-3 rounded-lg shadow-md w-full text-white transition-all duration-300 ease-in-out bg-slate-800"
       >
-  
-        <div className="flex justify-between text-sm mb-2">
-          <span className="font-semibold">{message.name}</span>
-          <span className="text-xs text-gray-400">{message.type}</span>
+        <div className="flex justify-between text-xs mb-2">
+          <span className="font-semibold pr-4">{message.name}</span>
+          <span className="text-xs text-gray-400 capitalize">{message.type}</span>
         </div>
-
-        <p className="text-lg">{message.text}</p>
+        <p className="text-sm">{message.text}</p>
       </div>
+    ))
+  ) : (
+    <div className="flex justify-center items-center h-full text-gray-400 text-lg">
+      No messages yet. Start the conversation!
     </div>
-  ))}
+  )}
 </div>
+
+
 
     </div>
   )
